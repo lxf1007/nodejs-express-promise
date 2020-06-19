@@ -1,0 +1,32 @@
+
+var express=module.exports=function () {
+	return app;
+};
+
+var route=function (req,res) {
+	var u=req.url.toLowerCase();
+	var m=req.method.toLowerCase();
+        var handler=u+m;
+	router[handler]?router[handler](req,res):res.end('sorry,err!');
+};
+
+var middlewares=[route];
+var router={};
+function app(req,res) {
+	var index=0;
+	function next() {
+		middlewares[index++](req,res,next);
+	}
+	next();
+}
+
+app.use=function (fuc) {
+	middlewares.splice((middlewares.length-1),0,fuc);
+};
+
+app.route=function(url,method,fuc){
+    url=url.toLowerCase();
+    method=method.toLowerCase();
+   if(!router[url+method])
+    router[url+method]=fuc;
+};
