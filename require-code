@@ -1,0 +1,8 @@
+var fs=require('fs');
+var rrequire=function (filePath) {
+  var code=fs.readFileSync(filePath);
+  var f=Function([exports],code);
+  var a={exports:{}};
+  f();
+  return a.exports;
+};
