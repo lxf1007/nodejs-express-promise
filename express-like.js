@@ -35,7 +35,7 @@
     url=url.toLowerCase();
     if (!routers['get']) routers['get']={};
       routers['get'][url]=fn;
-      if(url.indexOf(':')>0){
+      if(url.indexOf(':')>-1){
         regs[url]=pathToRegexp(url);
       }
     };
